@@ -1,0 +1,51 @@
+---
+title: '[R]dplyr'
+author: iris
+date: '2021-03-26'
+slug: r-dplyr
+categories:
+  - R
+tags: 
+  - dplyr
+---
+
+
+![](/images/image_file/r_dplyr/image_dplyr.png)
+
+<!-- ![](/images/image_file/r_dplyr/image_dplyr.png){#id .class width='100%'} -->
+
+
+
+R을 활용한 데이터 전처리의 바이블이라고 할 수 있는 dplyr 패키지를 파헤쳐 보자.  
+
+
+dplyr은 plyr의 성능문제(속도)를 개선하기 위해 나온 패키지로, 연산의 대부분을 C++로 이식하여 빠른 연산이 가능하다. 
+
+
+
+## 대표 함수 5가지
+  + 1. select()
+  + 2. filter()
+  + 3. group_by()
+  + 4. summarise()
+  + 5. mutate()
+
+
+위의 5가지 함수만 잘 이해하고 활용할 줄 안다면 데이터 전처리의 90% 이상은 큰 어려움 없이 가능하다. 
+iris 블로그 답게, data는 r의 내장 dataset인 iris를 사용하도록 하겠다.
+
+```{r}
+head(iris,10)
+```
+
+
+
+### 1. select()
+
+
+
+
+
+
+
+
