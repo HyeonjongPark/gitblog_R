@@ -1,0 +1,17 @@
+---
+title: '[R]ggplot2'
+author: iris
+date: '2021-03-27'
+slug: r-ggplot2
+categories:
+  - R
+tags:
+  - ggplot2
+---
+
+
+
+이번 포스팅에서는 R 시각화의 바이블이라고 할 수 있는 ggplot2 패키지를 리뷰하겠다.
+
+
+
