@@ -30,11 +30,24 @@ dplyr은 plyr의 성능문제(속도)를 개선하기 위해 나온 패키지로
   + 4. summarise()
   + 5. mutate()
 
+## Chain Operation
+  + pipe operator (%>%)
 
-위의 5가지 함수만 잘 이해하고 활용할 줄 안다면 데이터 전처리의 90% 이상은 큰 어려움 없이 가능하다. 
+
+위의 5가지 함수와 pipe operator만 잘 이해하고 활용할 줄 안다면 데이터 전처리의 90% 이상은 큰 어려움 없이 가능하다. pipe operator는 데이터를 전처리함에 있어 직관적으로 문법을 쓰고 개발자들에게 이해하기 쉽게 쓸 수 있는 dplyr이 가지는 가장 큰 장점이다.
 iris 블로그 답게, data는 r의 내장 dataset인 iris를 사용하도록 하겠다.
 
-```{r}
+```{r include=FALSE}
+library(dplyr)
+```
+
+~~~
+install.package("dplyr") # 패키지 설치
+library(dplyr) # library 호출
+~~~
+
+
+```{r ehco=FALSE}
 head(iris,10)
 ```
 
@@ -42,8 +55,88 @@ head(iris,10)
 
 ### 1. select()
 
+데이터 프레임에 특정 컬럼을 선택하고자 할 때 사용하는 함수
+
+예제) iris 데이터에서 Sepal.Length 와 Species 컬럼만을 추출해보자.  
+- %>% head(5)를 추가해, 5개의 row만 추출
+
+```{r}
+iris %>% select(Sepal.Length, Species) %>% head(5) 
+
+```
 
 
+### 2. filter()
+
+특정 value를 추출할 떄 사용하는 함수  
+
+예제) iris 데이터의 Species 컬럼의 value가 "setosa"인 것만을 추출해보자.
+
+```{r}
+iris %>% filter(Species == "setosa") %>% head(5)
+```
+
+
+### 3. group_by()
+### 4. summarise()
+
+group_by() 함수는 summarise() 함수와 보통 함께 사용된다.  
+group_by() 함수 내에 인자로는 컬럼명을 입력하여 요약 통계량을 계산하게 된다.  
+
+예제1) iris 데이터의 Species 컬럼 별 row 갯수가 몇개인지 확인해보자.
+
+```{r warning=FALSE}
+iris %>% group_by(Species) %>% summarise(count = n())
+```
+
+
+예제2) iris 데이터의 Species 컬럼 별 Sepal.Length 와 Petal.Width 의 평균을 확인해보자.
+
+```{r warning=FALSE}
+iris %>% group_by(Species) %>% summarise(mean_Sepal.Length = mean(Sepal.Length),
+                                         mean_Petal.Width = mean(Petal.Width))
+```
+
+
+
+### 5. mutate()
+
+mutate() 함수는 파생컬럼을 생성할 때 사용된다. 
+
+예제) iris 데이터의 Sepal.Length 컬럼과 Sepal.Width 의 값을 더한 값을 Sepal 이라는 파생컬럼으로 추가해보자.
+
+```{r}
+iris %>% mutate(Sepal = Sepal.Length + Sepal.Width) %>% head(5)
+```
+
+
+### 혼합 사용
+
+위의 다섯 가지 함수와 pipe operator를 사용해서 물 흐르듯이 코드를 작성이 가능하다.  
+
+예제) 
+
+  + iris 데이터의 Sepal.Length, Petal.Length, Speices 컬럼을 선택한다.
+  + Sepal.Length 의 값이 4.5 이상의 값만을 추출한다.
+  + Sepal.Length를 Petal.Length로 나눈 값으로 하는 Sepal_Petal이라는 파생 컬럼을 생성한다.
+  + Speice를 기준으로 하고 Sepal_Petal 값의 평균으로 집계하는 mean_Sepal_Petal 컬럼을 생성한다.
+
+```{r}
+iris %>%
+  select(Sepal.Length, Petal.Length, Species) %>% 
+  filter(Sepal.Length >= 4.5) %>% 
+  mutate(Sepal_Petal = Sepal.Length / Petal.Length) %>% 
+  group_by(Species) %>% 
+  summarise(mean_Sepal_Petal = mean(Sepal_Petal))
+  
+```
+
+
+### 총평
+
+blogdown으로 처음 포스팅하는 게시글이다 보니, 다듬어지지 않은 부분이 많은 것 같다.
+다음에는 좀 더 전문적으로 리뷰 하도록 노력해봐야 겠다. 다음 포스팅으론, R 시각화의 정석이라고 말할 수 있는
+ggplot2 패키지에 대한 리뷰를 해보겠다.
 
 
 
