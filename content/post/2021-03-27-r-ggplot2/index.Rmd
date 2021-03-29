@@ -23,10 +23,10 @@ tags:
 ## 대표 기능
   + geom_point()       : 점
   + geom_line()        : 선
-  + geom_area()        : 영역
   + geom_bar()         : 막대
   + geom_histrogram()  : 히스토그램
   + geom_boxplot()     : 박스플롯
+  + geom_area()        : 영역
 
 
 <!-- ## 부가 기능 -->
@@ -50,16 +50,17 @@ library(dplyr) # chain operator를 사용하기 위해
 
 
 ```{r ehco=FALSE}
-head(iris,5)
+# ggplot2 실습을 위해 내장 데이터셋 diamonds 를 사용한다.
+head(diamonds,5) 
 ```
 
 
-
-
-
-### 1. geom_point() 
-
 ggplot은 앞선 포스팅에서 다루었던 dplyr의 chain operator와 결합하여 사용이 가능하다.  
+
+
+### geom_point() 
+
+
 1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.  
 2. 그 후, ggplot x 축에 Sepal.Length를, y 축에 Sepal.Width를 매핑한다.  
 3. 어떤 기능(geom_point)으로 그래프를 표현할 지 결정한다.  
@@ -67,19 +68,68 @@ ggplot은 앞선 포스팅에서 다루었던 dplyr의 chain operator와 결합�
 이때, 데이터 프레임과 ggplot을 연결하는 것은 chain operator(%>%) 인 반면, ggplot(aes()) 와 geom_point() 를 잇는 것은 '+' 임을 명심하여야 한다.
 
 ```{r}
-iris %>% 
-  ggplot(aes(x = Sepal.Length, y = Sepal.Width)) + 
+diamonds %>% 
+  ggplot(aes(x = carat, y = price)) + 
   geom_point()
+```
+
+
+### geom_line()
+
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.  
+2. 그 후, ggplot x 축에 Sepal.Length를, y 축에 Sepal.Width를 매핑한다.  
+3. 어떤 기능(geom_line)으로 그래프를 표현할 지 결정한다. 
+  -> 헌 그래프에서는 group 이라는 옵션이 필요하다. 선은 동일한 x에 하나의 y 값만을 가져야하는 특징이 있으므로, group = 1 을 넣어주자.
+
+```{r}
+diamonds %>% 
+  group_by(cut) %>% 
+  summarise(mean_price = mean(price)) %>%  # cut을 기준으로 price의 평균값을 가지는 mean_price 별로 집계
+  ggplot(aes(x = cut, y = mean_price)) +
+  geom_line(group = 1)
+```
+
+
+
+### geom_bar()
+
+
+
+```{r }
+diamonds %>% 
+  group_by(cut) %>% 
+  summarise(mean_price = mean(price)) %>% 
+  ggplot(aes(x=cut, y=mean_price)) + 
+  geom_bar(stat = "identity") + 
+  coord_cartesian(expand = TRUE)
+  
 ```
 
 
 
 
 
+### geom_boxplot()
+
+```{r }
+diamonds %>% 
+  ggplot(aes(x=table)) + 
+  geom_histogram(binwidth = 8, fill = "white", color = "black")
+
+```
 
 
 
+### geom_area()
 
+```{r }
+
+# sample Data
+sunspotyear <- data.frame(Year     = as.numeric(time(sunspot.year)),
+                          Sunspots = as.numeric(sunspot.year))
+# 음영 영역 그래프 그리기
+ggplot(sunspotyear, aes(x = Year, y = Sunspots)) + geom_area()
+```
 
 
 
