@@ -89,7 +89,7 @@ head(diamonds,5) </code></pre>
   summarise(mean_price = mean(price)) %&gt;% 
   ggplot(aes(x=cut, y=mean_price)) + 
   geom_bar(stat = &quot;identity&quot;) + 
-  coord_cartesian(expand = FALSE)</code></pre>
+  coord_cartesian(expand = TRUE)</code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
