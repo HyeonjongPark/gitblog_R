@@ -10,8 +10,77 @@ tags:
 ---
 
 
-
-이번 포스팅에서는 R 시각화의 바이블이라고 할 수 있는 ggplot2 패키지를 리뷰하겠다.
-
+![](/images/image_file/r_ggplot2/image_ggplot2.png)
 
 
+이번 포스팅에서는 R 시각화의 대표 패키지 ggplot2 에 대해 리뷰해 보겠다. 
+데이터 분석 결과를 시각화 하는 데 있어서 굉장히 직관적이고 편리한 문법을 가지고 있다.
+
+
+## aes
+  + aes는 aesthetic의 줄임말로, 그래프의 x축, y축, color 등을 매핑(map)하는 역할을 한다.
+
+## 대표 기능
+  + geom_point()       : 점
+  + geom_line()        : 선
+  + geom_area()        : 영역
+  + geom_bar()         : 막대
+  + geom_histrogram()  : 히스토그램
+  + geom_boxplot()     : 박스플롯
+
+
+<!-- ## 부가 기능 -->
+<!--   + 1. -->
+<!--   + 2.  -->
+<!--   + 3. -->
+
+
+
+
+```{r include=FALSE}
+library(ggplot2)
+library(dplyr)
+```
+
+~~~
+install.package("ggplot2") # 패키지 설치
+library(ggplot2) # ggplot2 library 호출
+library(dplyr) # chain operator를 사용하기 위해
+~~~
+
+
+```{r ehco=FALSE}
+head(iris,5)
+```
+
+
+
+
+
+### 1. geom_point() 
+
+ggplot은 앞선 포스팅에서 다루었던 dplyr의 chain operator와 결합하여 사용이 가능하다.  
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.  
+2. 그 후, ggplot x 축에 Sepal.Length를, y 축에 Sepal.Width를 매핑한다.  
+3. 어떤 기능(geom_point)으로 그래프를 표현할 지 결정한다.  
+
+이때, 데이터 프레임과 ggplot을 연결하는 것은 chain operator(%>%) 인 반면, ggplot(aes()) 와 geom_point() 를 잇는 것은 '+' 임을 명심하여야 한다.
+
+```{r}
+iris %>% 
+  ggplot(aes(x = Sepal.Length, y = Sepal.Width)) + 
+  geom_point()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+##### 참고 사이트 : https://rpubs.com/kimwoohyung/ggplot2

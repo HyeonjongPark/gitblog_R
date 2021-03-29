@@ -9,6 +9,55 @@ tags:
   - ggplot2
 ---
 
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
-<p>이번 포스팅에서는 R 시각화의 바이블이라고 할 수 있는 ggplot2 패키지를 리뷰하겠다.</p>
+<p><img src="/images/image_file/r_ggplot2/image_ggplot2.png" /></p>
+<p>이번 포스팅에서는 R 시각화의 대표 패키지 ggplot2 에 대해 리뷰해 보겠다.
+데이터 분석 결과를 시각화 하는 데 있어서 굉장히 직관적이고 편리한 문법을 가지고 있다.</p>
+<div id="aes" class="section level2">
+<h2>aes</h2>
+<ul>
+<li>aes는 aesthetic의 줄임말로, 그래프의 x축, y축, color 등을 매핑(map)하는 역할을 한다.</li>
+</ul>
+</div>
+<div id="대표-기능" class="section level2">
+<h2>대표 기능</h2>
+<ul>
+<li>geom_point() : 점</li>
+<li>geom_line() : 선</li>
+<li>geom_area() : 영역</li>
+<li>geom_bar() : 막대</li>
+<li>geom_histrogram() : 히스토그램</li>
+<li>geom_boxplot() : 박스플롯</li>
+</ul>
+<!-- ## 부가 기능 -->
+<!--   + 1. -->
+<!--   + 2.  -->
+<!--   + 3. -->
+<pre><code>install.package(&quot;ggplot2&quot;) # 패키지 설치
+library(ggplot2) # ggplot2 library 호출
+library(dplyr) # chain operator를 사용하기 위해</code></pre>
+<pre class="r"><code>head(iris,5)</code></pre>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa</code></pre>
+<div id="geom_point" class="section level3">
+<h3>1. geom_point()</h3>
+<p>ggplot은 앞선 포스팅에서 다루었던 dplyr의 chain operator와 결합하여 사용이 가능하다.<br />
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.<br />
+2. 그 후, ggplot x 축에 Sepal.Length를, y 축에 Sepal.Width를 매핑한다.<br />
+3. 어떤 기능(geom_point)으로 그래프를 표현할 지 결정한다.</p>
+<p>이때, 데이터 프레임과 ggplot을 연결하는 것은 chain operator(%&gt;%) 인 반면, ggplot(aes()) 와 geom_point() 를 잇는 것은 ‘+’ 임을 명심하여야 한다.</p>
+<pre class="r"><code>iris %&gt;% 
+  ggplot(aes(x = Sepal.Length, y = Sepal.Width)) + 
+  geom_point()</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div id="참고-사이트-httpsrpubs.comkimwoohyungggplot2" class="section level5">
+<h5>참고 사이트 : <a href="https://rpubs.com/kimwoohyung/ggplot2" class="uri">https://rpubs.com/kimwoohyung/ggplot2</a></h5>
+</div>
+</div>
+</div>
