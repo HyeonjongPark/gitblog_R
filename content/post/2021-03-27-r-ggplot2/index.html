@@ -91,6 +91,50 @@ head(diamonds,5) </code></pre>
   geom_bar(stat = &quot;identity&quot;) </code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<blockquote>
+<p>[옵션] cut,color 별로 counting
+group_by(cut,color)
+x=cut, y=n, fill=color # fill=color는 cut 내에서 color가 차지하는 빈도를 보여주게끔 한다.</p>
+</blockquote>
+<pre class="r"><code>diamonds %&gt;% 
+  group_by(cut,color) %&gt;% 
+  summarise(n = n()) %&gt;% 
+  ggplot(aes(x=cut, y=n, fill=color)) + 
+  geom_bar(stat = &quot;identity&quot;) </code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;cut&#39; (override with `.groups` argument)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<blockquote>
+<p>[옵션] 누적식이 아닌 순차적으로 그래프를 배열하고 싶을 때 “position=dodge”를 추가로 사용한다.</p>
+</blockquote>
+<pre class="r"><code>diamonds %&gt;% 
+  group_by(cut,color) %&gt;% 
+  summarise(n = n()) %&gt;% 
+  ggplot(aes(x=cut, y=n, fill=color)) + 
+  geom_bar(stat = &quot;identity&quot;, position=&quot;dodge&quot;) </code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;cut&#39; (override with `.groups` argument)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<blockquote>
+<p>[옵션] 그래프를 세로가 아닌, 가로의 형태로 보여주고 싶을 때는 coord_flip()함수를 이용한다.</p>
+</blockquote>
+<pre class="r"><code>diamonds %&gt;% 
+  group_by(cut,color) %&gt;% 
+  summarise(n = n()) %&gt;% 
+  ggplot(aes(x=cut, y=n, fill=color)) + 
+  geom_bar(stat = &quot;identity&quot;, position=&quot;dodge&quot;) +
+  coord_flip()</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;cut&#39; (override with `.groups` argument)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<blockquote>
+<p>[옵션] 절대 빈도가 아닌, 컬럼 값을 비율로 표시해주고자 할 때, [<strong>position=“fill”</strong>]을 이용한다.</p>
+</blockquote>
+<pre class="r"><code>diamonds %&gt;% 
+  group_by(cut,color) %&gt;% 
+  summarise(n = n()) %&gt;% 
+  ggplot(aes(x=cut, y=n, fill=color)) + 
+  geom_bar(stat = &quot;identity&quot;, position=&quot;dodge&quot;) +
+  coord_flip()</code></pre>
+<pre><code>## `summarise()` regrouping output by &#39;cut&#39; (override with `.groups` argument)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="geom_histogram" class="section level2">
 <h2>geom_histogram()</h2>
@@ -102,21 +146,21 @@ head(diamonds,5) </code></pre>
 <pre class="r"><code>diamonds %&gt;% 
   ggplot(aes(x=table)) + 
   geom_histogram(binwidth = 1, fill = &quot;white&quot;, color = &quot;black&quot;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <blockquote>
 <p>binwidth = 5</p>
 </blockquote>
 <pre class="r"><code>diamonds %&gt;% 
   ggplot(aes(x=table)) + 
   geom_histogram(binwidth = 5, fill = &quot;white&quot;, color = &quot;black&quot;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <blockquote>
 <p>fill = “green” , color = “red”</p>
 </blockquote>
 <pre class="r"><code>diamonds %&gt;% 
   ggplot(aes(x=table)) + 
   geom_histogram(binwidth = 5, fill = &quot;green&quot;, color = &quot;red&quot;)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
 <div id="geom_boxplot" class="section level2">
 <h2>geom_boxplot()</h2>
@@ -127,14 +171,14 @@ head(diamonds,5) </code></pre>
 <pre class="r"><code>diamonds %&gt;% 
   ggplot(aes(x= color, y = carat)) + 
   geom_boxplot()</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <blockquote>
 <p>[옵션] fill = “slategrey”, color = “darkgray”, width = 0.3</p>
 </blockquote>
 <pre class="r"><code>diamonds %&gt;% 
   ggplot(aes(x= color, y = carat)) + 
   geom_boxplot(fill = &quot;slategrey&quot;, color = &quot;darkgray&quot;, width = 0.3)</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <blockquote>
 <p>[옵션] 평균 추가하기<br />
 stat_summary(fun=“mean”, geom=“point”, shape=19, size=2, fill=“black”)</p>
@@ -143,16 +187,34 @@ stat_summary(fun=“mean”, geom=“point”, shape=19, size=2, fill=“black�
   ggplot(aes(x= color, y = carat)) + 
   geom_boxplot(fill = &quot;slategrey&quot;, color = &quot;darkgray&quot;, width = 0.3) +
   stat_summary(fun=&quot;mean&quot;, geom=&quot;point&quot;, shape=19, size=2, fill=&quot;black&quot;) </code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 </div>
 <div id="geom_area" class="section level2">
 <h2>geom_area()</h2>
+<p>geom_area 같은 경우, numeric 형태의 컬럼으로 구현이 가능하기에, sunspot.year 내장 ts 를 사용해서 예제를 진행해보자.</p>
+<p>[기본 문법]<br />
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.<br />
+2. 어떤 컬럼(x = )을 기준으로 boxplot 을 그리고자 하는 컬럼(y = ) 을 지정하자.
+3. + geom_boxplot() 을 붙여준다.</p>
 <pre class="r"><code># sample Data
 sunspotyear &lt;- data.frame(Year     = as.numeric(time(sunspot.year)),
                           Sunspots = as.numeric(sunspot.year))
 # 음영 영역 그래프 그리기
-ggplot(sunspotyear, aes(x = Year, y = Sunspots)) + geom_area()</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+sunspotyear %&gt;% 
+  ggplot(aes(x = Year, y = Sunspots)) + 
+  geom_area()</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<blockquote>
+<p>[옵션] fill = “blue”, color = “red”</p>
+</blockquote>
+<pre class="r"><code># sample Data
+sunspotyear &lt;- data.frame(Year     = as.numeric(time(sunspot.year)),
+                          Sunspots = as.numeric(sunspot.year))
+# 음영 영역 그래프 그리기
+sunspotyear %&gt;% 
+  ggplot(aes(x = Year, y = Sunspots)) + 
+  geom_area(fill = &quot;blue&quot;, color = &quot;red&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <div id="참고-사이트-httpsrpubs.comkimwoohyungggplot2" class="section level5">
 <h5>참고 사이트 : <a href="https://rpubs.com/kimwoohyung/ggplot2" class="uri">https://rpubs.com/kimwoohyung/ggplot2</a></h5>
 </div>
