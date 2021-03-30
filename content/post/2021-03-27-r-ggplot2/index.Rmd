@@ -1,5 +1,5 @@
 ---
-title: '[R]ggplot2'
+title: '[R]ggplot2 - 기본'
 author: iris
 date: '2021-03-27'
 slug: r-ggplot2
@@ -360,6 +360,9 @@ sunspotyear %>%
   geom_area(fill = "blue", color = "red")
 ```
 
+
+### [총평]  
+ggplot2에 대한 기본적인 기능들에 대해 알아보았다. 소개한 내용 이외에도 다양한 기능이 많아, 모든 함수 및 인자들에 대해 다루기 어려웠기에, 실제 업무에 도움이 될 만한 부분 위주로 다뤘다. 추후에 심화된 ggplot2의 기능을 다뤄보고자 한다.
 
 
 ##### 참고 사이트 : https://rpubs.com/kimwoohyung/ggplot2
