@@ -1,8 +1,12 @@
-# R 에 대해
+# R programming - git blog
 
-https://irisblogger.netlify.app/
+[**git blog 링크**](https://irisblogger.netlify.app/)
 
-> dplyr
+> [R]dplyr
 
-> ggplot2
+> [R]ggplot2 - 기본
+
+> [R]highcharter
+
+
 
