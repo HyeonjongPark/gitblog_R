@@ -58,9 +58,9 @@ head(diamonds,5)
 ggplot은 앞선 포스팅에서 다루었던 dplyr의 chain operator와 결합하여 사용이 가능하다.  
 
 
-### geom_point() 
+## geom_point() 
 
-
+[기본 문법]  
 1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.  
 2. 그 후, ggplot x 축에 Sepal.Length를, y 축에 Sepal.Width를 매핑한다.  
 3. 어떤 기능(geom_point)으로 그래프를 표현할 지 결정한다.  
@@ -74,8 +74,9 @@ diamonds %>%
 ```
 
 
-### geom_line()
+## geom_line()
 
+[기본 문법]  
 1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.  
 2. 그 후, ggplot x 축에 Sepal.Length를, y 축에 Sepal.Width를 매핑한다.  
 3. 어떤 기능(geom_line)으로 그래프를 표현할 지 결정한다. 
@@ -91,36 +92,109 @@ diamonds %>%
 
 
 
-### geom_bar()
+## geom_bar()
 
-
+[기본 문법]  
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.  
+2. cut을 기준으로 price의 평균가격을 grouping 해보자.
+3. 그 후, cut에 따른 평균 price를 bar plot으로 구현해보자.  
+4. stat = "identitiy"로 y축의 높이를 데이터의 값으로 하는 bar plot의 형태로 지정해보자.
 
 ```{r }
 diamonds %>% 
   group_by(cut) %>% 
   summarise(mean_price = mean(price)) %>% 
   ggplot(aes(x=cut, y=mean_price)) + 
-  geom_bar(stat = "identity") + 
-  coord_cartesian(expand = TRUE)
-  
+  geom_bar(stat = "identity") 
 ```
 
 
 
 
 
-### geom_boxplot()
+## geom_histogram()
+
+[기본 문법]  
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.  
+2. 어떤 컬럼에 대해, histogram을 그리길 원하는 지 지정해주자.
+3. binwidth = 1 로 값의 구간이 1이 되는 히스토그램을 그려보자.
+4. fill = "white"로 막대의 색이 흰색이 되도록, color = "black"으로 막대의 테두리가 검정이 되도록 옵션을 지정한다.
+
 
 ```{r }
 diamonds %>% 
   ggplot(aes(x=table)) + 
-  geom_histogram(binwidth = 8, fill = "white", color = "black")
+  geom_histogram(binwidth = 1, fill = "white", color = "black")
+
+```
+
+
+> binwidth = 5
+
+
+```{r }
+diamonds %>% 
+  ggplot(aes(x=table)) + 
+  geom_histogram(binwidth = 5, fill = "white", color = "black")
+
+```
+
+
+> fill = "green" , color = "red"
+
+```{r }
+diamonds %>% 
+  ggplot(aes(x=table)) + 
+  geom_histogram(binwidth = 5, fill = "green", color = "red")
 
 ```
 
 
 
-### geom_area()
+
+
+## geom_boxplot()
+
+[기본 문법]  
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.  
+2. 어떤 컬럼(x = )을 기준으로 boxplot 을 그리고자 하는 컬럼(y = ) 을 지정하자.
+3. + geom_boxplot() 을 붙여준다.
+
+```{r }
+diamonds %>% 
+  ggplot(aes(x= color, y = carat)) + 
+  geom_boxplot()
+
+```
+
+
+> [옵션] fill = "slategrey", color = "darkgray", width = 0.3
+
+```{r }
+diamonds %>% 
+  ggplot(aes(x= color, y = carat)) + 
+  geom_boxplot(fill = "slategrey", color = "darkgray", width = 0.3)
+
+```
+
+
+> [옵션] 평균 추가하기   
+> stat_summary(fun="mean", geom="point", shape=19, size=2, fill="black")  
+
+
+```{r }
+diamonds %>% 
+  ggplot(aes(x= color, y = carat)) + 
+  geom_boxplot(fill = "slategrey", color = "darkgray", width = 0.3) +
+  stat_summary(fun="mean", geom="point", shape=19, size=2, fill="black") 
+
+```
+
+
+
+
+
+## geom_area()
 
 ```{r }
 

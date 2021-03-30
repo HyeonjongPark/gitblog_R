@@ -49,31 +49,26 @@ head(diamonds,5) </code></pre>
 ## 4 0.290 Premium I     VS2      62.4    58   334  4.2   4.23  2.63
 ## 5 0.31  Good    J     SI2      63.3    58   335  4.34  4.35  2.75</code></pre>
 <p>ggplot은 앞선 포스팅에서 다루었던 dplyr의 chain operator와 결합하여 사용이 가능하다.</p>
-<div id="geom_point" class="section level3">
-<h3>geom_point()</h3>
-<ol style="list-style-type: decimal">
-<li>어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.<br />
-</li>
-<li>그 후, ggplot x 축에 Sepal.Length를, y 축에 Sepal.Width를 매핑한다.<br />
-</li>
-<li>어떤 기능(geom_point)으로 그래프를 표현할 지 결정한다.</li>
-</ol>
+</div>
+<div id="geom_point" class="section level2">
+<h2>geom_point()</h2>
+<p>[기본 문법]<br />
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.<br />
+2. 그 후, ggplot x 축에 Sepal.Length를, y 축에 Sepal.Width를 매핑한다.<br />
+3. 어떤 기능(geom_point)으로 그래프를 표현할 지 결정한다.</p>
 <p>이때, 데이터 프레임과 ggplot을 연결하는 것은 chain operator(%&gt;%) 인 반면, ggplot(aes()) 와 geom_point() 를 잇는 것은 ‘+’ 임을 명심하여야 한다.</p>
 <pre class="r"><code>diamonds %&gt;% 
   ggplot(aes(x = carat, y = price)) + 
   geom_point()</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
-<div id="geom_line" class="section level3">
-<h3>geom_line()</h3>
-<ol style="list-style-type: decimal">
-<li>어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.<br />
-</li>
-<li>그 후, ggplot x 축에 Sepal.Length를, y 축에 Sepal.Width를 매핑한다.<br />
-</li>
-<li>어떤 기능(geom_line)으로 그래프를 표현할 지 결정한다.
--&gt; 헌 그래프에서는 group 이라는 옵션이 필요하다. 선은 동일한 x에 하나의 y 값만을 가져야하는 특징이 있으므로, group = 1 을 넣어주자.</li>
-</ol>
+<div id="geom_line" class="section level2">
+<h2>geom_line()</h2>
+<p>[기본 문법]<br />
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.<br />
+2. 그 후, ggplot x 축에 Sepal.Length를, y 축에 Sepal.Width를 매핑한다.<br />
+3. 어떤 기능(geom_line)으로 그래프를 표현할 지 결정한다.
+-&gt; 헌 그래프에서는 group 이라는 옵션이 필요하다. 선은 동일한 x에 하나의 y 값만을 가져야하는 특징이 있으므로, group = 1 을 넣어주자.</p>
 <pre class="r"><code>diamonds %&gt;% 
   group_by(cut) %&gt;% 
   summarise(mean_price = mean(price)) %&gt;%  # cut을 기준으로 price의 평균값을 가지는 mean_price 별로 집계
@@ -82,34 +77,83 @@ head(diamonds,5) </code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
-<div id="geom_bar" class="section level3">
-<h3>geom_bar()</h3>
+<div id="geom_bar" class="section level2">
+<h2>geom_bar()</h2>
+<p>[기본 문법]<br />
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.<br />
+2. cut을 기준으로 price의 평균가격을 grouping 해보자.
+3. 그 후, cut에 따른 평균 price를 bar plot으로 구현해보자.<br />
+4. stat = “identitiy”로 y축의 높이를 데이터의 값으로 하는 bar plot의 형태로 지정해보자.</p>
 <pre class="r"><code>diamonds %&gt;% 
   group_by(cut) %&gt;% 
   summarise(mean_price = mean(price)) %&gt;% 
   ggplot(aes(x=cut, y=mean_price)) + 
-  geom_bar(stat = &quot;identity&quot;) + 
-  coord_cartesian(expand = TRUE)</code></pre>
+  geom_bar(stat = &quot;identity&quot;) </code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 </div>
-<div id="geom_boxplot" class="section level3">
-<h3>geom_boxplot()</h3>
+<div id="geom_histogram" class="section level2">
+<h2>geom_histogram()</h2>
+<p>[기본 문법]<br />
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.<br />
+2. 어떤 컬럼에 대해, histogram을 그리길 원하는 지 지정해주자.
+3. binwidth = 1 로 값의 구간이 1이 되는 히스토그램을 그려보자.
+4. fill = “white”로 막대의 색이 흰색이 되도록, color = “black”으로 막대의 테두리가 검정이 되도록 옵션을 지정한다.</p>
 <pre class="r"><code>diamonds %&gt;% 
   ggplot(aes(x=table)) + 
-  geom_histogram(binwidth = 8, fill = &quot;white&quot;, color = &quot;black&quot;)</code></pre>
+  geom_histogram(binwidth = 1, fill = &quot;white&quot;, color = &quot;black&quot;)</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<blockquote>
+<p>binwidth = 5</p>
+</blockquote>
+<pre class="r"><code>diamonds %&gt;% 
+  ggplot(aes(x=table)) + 
+  geom_histogram(binwidth = 5, fill = &quot;white&quot;, color = &quot;black&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<blockquote>
+<p>fill = “green” , color = “red”</p>
+</blockquote>
+<pre class="r"><code>diamonds %&gt;% 
+  ggplot(aes(x=table)) + 
+  geom_histogram(binwidth = 5, fill = &quot;green&quot;, color = &quot;red&quot;)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 </div>
-<div id="geom_area" class="section level3">
-<h3>geom_area()</h3>
+<div id="geom_boxplot" class="section level2">
+<h2>geom_boxplot()</h2>
+<p>[기본 문법]<br />
+1. 어떤 데이터프레임을 사용할 지, 제일 처음 선언을 해주자.<br />
+2. 어떤 컬럼(x = )을 기준으로 boxplot 을 그리고자 하는 컬럼(y = ) 을 지정하자.
+3. + geom_boxplot() 을 붙여준다.</p>
+<pre class="r"><code>diamonds %&gt;% 
+  ggplot(aes(x= color, y = carat)) + 
+  geom_boxplot()</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<blockquote>
+<p>[옵션] fill = “slategrey”, color = “darkgray”, width = 0.3</p>
+</blockquote>
+<pre class="r"><code>diamonds %&gt;% 
+  ggplot(aes(x= color, y = carat)) + 
+  geom_boxplot(fill = &quot;slategrey&quot;, color = &quot;darkgray&quot;, width = 0.3)</code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<blockquote>
+<p>[옵션] 평균 추가하기<br />
+stat_summary(fun=“mean”, geom=“point”, shape=19, size=2, fill=“black”)</p>
+</blockquote>
+<pre class="r"><code>diamonds %&gt;% 
+  ggplot(aes(x= color, y = carat)) + 
+  geom_boxplot(fill = &quot;slategrey&quot;, color = &quot;darkgray&quot;, width = 0.3) +
+  stat_summary(fun=&quot;mean&quot;, geom=&quot;point&quot;, shape=19, size=2, fill=&quot;black&quot;) </code></pre>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="geom_area" class="section level2">
+<h2>geom_area()</h2>
 <pre class="r"><code># sample Data
 sunspotyear &lt;- data.frame(Year     = as.numeric(time(sunspot.year)),
                           Sunspots = as.numeric(sunspot.year))
 # 음영 영역 그래프 그리기
 ggplot(sunspotyear, aes(x = Year, y = Sunspots)) + geom_area()</code></pre>
-<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <div id="참고-사이트-httpsrpubs.comkimwoohyungggplot2" class="section level5">
 <h5>참고 사이트 : <a href="https://rpubs.com/kimwoohyung/ggplot2" class="uri">https://rpubs.com/kimwoohyung/ggplot2</a></h5>
-</div>
 </div>
 </div>
