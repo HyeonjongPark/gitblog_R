@@ -1,0 +1,156 @@
+---
+title: '[python]업비트 자동매매(1)'
+author: iris
+date: '2021-03-31'
+slug: python-upbit-trader
+categories:
+  - python
+tags:
+  - python
+  - upbit
+  - coin
+---
+
+
+![](/images/image_file/python_upbit-trader/upbit_image.PNG)
+
+
+```{r setup, inclue=FALSE, }
+options(scipen = 0.01)
+library(reticulate)
+use_python("usr/local/bin/python")
+
+```
+
+
+## 티커 조회
+
+pyupbit 모듈의 get_tickers() 함수를 사용하여 티커를 얻어 온 후, 출력을 해보자.  
+
+```{python}
+import pyupbit
+tickers = pyupbit.get_tickers()
+print(tickers)
+```
+
+'KRW-BTC', 'KRW-ETH', ... 모두 'A-B' 의 구조를 가지는 것을 확인할 수 있다. 이때, A는 기준통화(fiat) 를 의미하고, B는 Coin 이름의 약어를 의미한다.
+
+
+
+
+## 기준통화(fiat) 지정 조회
+
+업비트 내에서 원화(KRW) 를 기준통화로 거래할 수 있는 코인들에 대한 리스트를 얻을 수 있다.
+
+```{python}
+tickers = pyupbit.get_tickers(fiat="KRW")
+print(tickers)
+```
+
+
+
+## 현재가 조회
+
+get_current_price() 함수를 사용하여 현재 거래되고 있는 코인의 가격을 알 수 있다. 
+
+```{python}
+price = pyupbit.get_current_price("KRW-BTT")
+print(price)
+```
+
+
+## 과거 데이터 조회
+
+각 컬럼은 시가(open), 고가(high), 저가(low), 종가(close), 거래량(volume) 를 의미하며, 2020-09-13 을 기준으로 봤을 때, 비트토렌트(BTT)는 상장되고 약 6개월 후인 2021-03-31의 가격은 14.87배가 오른 것을 확인할 수 있습니다.
+
+```{python}
+df = pyupbit.get_ohlcv("KRW-BTT")
+print(df)
+
+```
+
+
+## 잔고 조회
+
+이제 본인의 계정에 있는 잔고를 조회해보자.
+
+
+
+
+
+
+본인의 access_key와 secret_key는 노출이 되지 않도록 보관을 잘 해야하며, 필자의 경우에는 code가 github에 업로드 되기에, akey.txt와 skey.txt 파일을 각각 만들어 key를 저장해 두었다. 그리고, .gitignore 파일에 두 파일을 추가함으로 인해 노출이 되지않도록 하였다.  
+(코드를 공유하지 않는 경우엔, access_key = "발급받은 access_key" secret_key = "발급받은 secret_key"를 바로 집어 넣어도 무방하다.)
+
+```{python}
+import pyupbit
+
+access_key = open("D:/workspace/gitblog_code/gitblog_R/akey.txt", "r").readline()
+secret_key = open("D:/workspace/gitblog_code/gitblog_R/skey.txt", "r").readline()
+
+upbit = pyupbit.Upbit(access_key, secret_key)
+print(upbit.get_balances())
+```
+
+
+## 주문하기(매수)
+
+주석 처리된 아랫 부분은 비트토렌트(BTT) 100개를 개당 1원에 매수하는 것을 의미한다. 실제로 매수가 들어가지 않게 하기 위해 주석 처리를 하였고, 실제 매수를 하기를 원한다면 주석을 풀길 바란다.  
+
+print(ret)을 하게 되면, 해당거래에 대한 거래번호와 함께 다양한 정보를 제공한다. 'uuid' : '거래번호' 의 정보를 가지고 후에 거래를 취소할 수 있다.
+
+```{python}
+import pyupbit
+
+access_key = open("D:/workspace/gitblog_code/gitblog_R/akey.txt", "r").readline()
+secret_key = open("D:/workspace/gitblog_code/gitblog_R/skey.txt", "r").readline()
+
+upbit = pyupbit.Upbit(access_key, secret_key)
+
+# ret = upbit.buy_limit_order("KRW-BTT", 1, 100)
+# print(ret)
+
+```
+
+
+## 주문하기(매도)
+
+
+주석 처리된 아랫 부분은 비트토렌트(BTT) 200개를 개당 10원에 매도하는 것을 의미한다. 실제로 매도가 들어가지 않게 하기 위해 주석 처리를 하였고, 실제 매도 하기를 원한다면 주석을 풀길 바란다.  
+
+
+```{python}
+import pyupbit
+
+access_key = open("D:/workspace/gitblog_code/gitblog_R/akey.txt", "r").readline()
+secret_key = open("D:/workspace/gitblog_code/gitblog_R/skey.txt", "r").readline()
+
+upbit = pyupbit.Upbit(access_key, secret_key)
+
+# ret = upbit.sell_limit_order("KRW-BTT", 10, 200)
+# print(ret)
+
+```
+
+
+
+
+## 주문취소
+
+이번에는 주문 취소에 대해 알아보겠다. print(ret)을 통해 거래정보를 확인하고, 'uuid' : '거래번호' 에 있는 거래번호를 입력해보자. 그런 다음 print(ret)을 하게 되면 거래가 취소된 것을 확인할 수 있다.
+
+```{python}
+import pyupbit
+
+access_key = open("D:/workspace/gitblog_code/gitblog_R/akey.txt", "r").readline()
+secret_key = open("D:/workspace/gitblog_code/gitblog_R/skey.txt", "r").readline()
+
+upbit = pyupbit.Upbit(access_key, secret_key)
+
+# ret = upbit.cancel_order('거래번호')
+# print(ret)
+
+```
+
+
+
