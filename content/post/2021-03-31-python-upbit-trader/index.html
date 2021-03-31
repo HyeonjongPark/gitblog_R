@@ -1,5 +1,5 @@
 ---
-title: '[python]업비트 자동매매(1)'
+title: '[python]업비트 자동매매(1/2)'
 author: iris
 date: '2021-03-31'
 slug: python-upbit-trader
@@ -15,9 +15,6 @@ tags:
 
 
 <p><img src="/images/image_file/python_upbit-trader/upbit_image.PNG" /></p>
-<pre class="r"><code>options(scipen = 0.01)
-library(reticulate)
-use_python(&quot;usr/local/bin/python&quot;)</code></pre>
 <div id="티커-조회" class="section level2">
 <h2>티커 조회</h2>
 <p>pyupbit 모듈의 get_tickers() 함수를 사용하여 티커를 얻어 온 후, 출력을 해보자.</p>
@@ -39,7 +36,7 @@ print(tickers)</code></pre>
 <p>get_current_price() 함수를 사용하여 현재 거래되고 있는 코인의 가격을 알 수 있다.</p>
 <pre class="python"><code>price = pyupbit.get_current_price(&quot;KRW-BTT&quot;)
 print(price)</code></pre>
-<pre><code>## 6.26</code></pre>
+<pre><code>## 6.06</code></pre>
 </div>
 <div id="과거-데이터-조회" class="section level2">
 <h2>과거 데이터 조회</h2>
@@ -57,15 +54,57 @@ print(df)</code></pre>
 ## 2021-03-28 09:00:00  4.52  4.53  4.24   4.35  5.211977e+10
 ## 2021-03-29 09:00:00  4.35  4.68  4.25   4.47  4.704267e+10
 ## 2021-03-30 09:00:00  4.47  5.83  4.46   5.56  1.256334e+11
-## 2021-03-31 09:00:00  5.56  6.65  5.33   6.26  1.286853e+11
+## 2021-03-31 09:00:00  5.56  6.65  5.33   6.05  1.429518e+11
 ## 
 ## [200 rows x 5 columns]</code></pre>
 </div>
 <div id="잔고-조회" class="section level2">
 <h2>잔고 조회</h2>
 <p>이제 본인의 계정에 있는 잔고를 조회해보자.</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>잔고 조회에 앞서, upbit API 사용 신청을 해야 한다. <a href="https://upbit.com/">업비트</a> 에 접속한 후 로그인을 해보자.</li>
+</ol>
+</blockquote>
+<p><img src="/images/image_file/python_upbit-trader/login.PNG" /></p>
+<blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>카카오톡 인증 번호를 받은 후, 접속</li>
+</ol>
+</blockquote>
+<p><img src="/images/image_file/python_upbit-trader/login2.PNG" /></p>
+<blockquote>
+<ol start="3" style="list-style-type: decimal">
+<li>홈페이지 우측 하단의 Open API 클릭</li>
+</ol>
+</blockquote>
+<p><img src="/images/image_file/python_upbit-trader/api.png" /></p>
+<blockquote>
+<ol start="4" style="list-style-type: decimal">
+<li>Open API 사용하기 클릭</li>
+</ol>
+</blockquote>
+<p><img src="/images/image_file/python_upbit-trader/api2.png" /></p>
+<blockquote>
+<ol start="5" style="list-style-type: decimal">
+<li>자산조회, 주문조회, 주문하기, 특정IP에서만 실행을 체크</li>
+</ol>
+</blockquote>
+<p>이제 자신의 <a href="https://search.naver.com/search.naver?where=nexearch&amp;sm=top_hty&amp;fbm=0&amp;ie=utf8&amp;query=ip+%EC%A3%BC%EC%86%8C+%ED%99%95%EC%9D%B8">ip주소확인</a> 후, 기입하고 Open API Key 발급하기를 누른다.</p>
+<p><img src="/images/image_file/python_upbit-trader/api3.png" /></p>
+<blockquote>
+<ol start="6" style="list-style-type: decimal">
+<li>발급된 키 복사하여 보관하기</li>
+</ol>
+</blockquote>
+<p>두 개의 키를 각각 복사하여 보관한다.</p>
+<p><img src="/images/image_file/python_upbit-trader/api4.png" /></p>
 <p>본인의 access_key와 secret_key는 노출이 되지 않도록 보관을 잘 해야하며, 필자의 경우에는 code가 github에 업로드 되기에, akey.txt와 skey.txt 파일을 각각 만들어 key를 저장해 두었다. 그리고, .gitignore 파일에 두 파일을 추가함으로 인해 노출이 되지않도록 하였다.<br />
 (코드를 공유하지 않는 경우엔, access_key = “발급받은 access_key” secret_key = “발급받은 secret_key”를 바로 집어 넣어도 무방하다.)</p>
+</div>
+<div id="잔고조회" class="section level2">
+<h2>잔고조회</h2>
+<p>이제 발급받은 access_key와 secret_key를 이용하여 나의 잔고를 확인해보자.</p>
 <pre class="python"><code>import pyupbit
 
 access_key = open(&quot;D:/workspace/gitblog_code/gitblog_R/akey.txt&quot;, &quot;r&quot;).readline()
@@ -114,4 +153,11 @@ upbit = pyupbit.Upbit(access_key, secret_key)
 
 # ret = upbit.cancel_order(&#39;거래번호&#39;)
 # print(ret)</code></pre>
+</div>
+<div id="총평" class="section level2">
+<h2>[총평]</h2>
+<p>업비트를 이용한 코인 자동 매매를 하기 위해 단순 조회부터 API 키 발급을 통한 계정 연동, 매수, 매도 까지 알아보았다. 양이 점점 방대해지고 스크롤 압박이 강해지는 것 같아, 추후 코인 자동매매 알고리즘은 후속 포스팅을 통해 진행해보겠다.</p>
+<div id="reference-httpswikidocs.net31063" class="section level5">
+<h5>reference : <a href="https://wikidocs.net/31063" class="uri">https://wikidocs.net/31063</a></h5>
+</div>
 </div>

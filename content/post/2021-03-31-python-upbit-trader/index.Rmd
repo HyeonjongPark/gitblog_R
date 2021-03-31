@@ -1,5 +1,5 @@
 ---
-title: '[python]업비트 자동매매(1)'
+title: '[python]업비트 자동매매(1/2)'
 author: iris
 date: '2021-03-31'
 slug: python-upbit-trader
@@ -15,8 +15,7 @@ tags:
 ![](/images/image_file/python_upbit-trader/upbit_image.PNG)
 
 
-```{r setup, inclue=FALSE, }
-options(scipen = 0.01)
+```{r setup, include=FALSE}
 library(reticulate)
 use_python("usr/local/bin/python")
 
@@ -72,15 +71,45 @@ print(df)
 
 ## 잔고 조회
 
-이제 본인의 계정에 있는 잔고를 조회해보자.
+이제 본인의 계정에 있는 잔고를 조회해보자. 
+
+> 1. 잔고 조회에 앞서, upbit API 사용 신청을 해야 한다. [업비트](https://upbit.com/) 에 접속한 후 로그인을 해보자. 
+
+![](/images/image_file/python_upbit-trader/login.PNG)
 
 
+> 2. 카카오톡 인증 번호를 받은 후, 접속
 
+![](/images/image_file/python_upbit-trader/login2.PNG)
 
+> 3. 홈페이지 우측 하단의 Open API 클릭
+
+![](/images/image_file/python_upbit-trader/api.png)
+
+> 4. Open API 사용하기 클릭
+
+![](/images/image_file/python_upbit-trader/api2.png)
+
+> 5. 자산조회, 주문조회, 주문하기, 특정IP에서만 실행을 체크
+
+이제 자신의 [ip주소확인](https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=ip+%EC%A3%BC%EC%86%8C+%ED%99%95%EC%9D%B8) 후, 기입하고 Open API Key 발급하기를 누른다.
+
+![](/images/image_file/python_upbit-trader/api3.png)
+
+> 6. 발급된 키 복사하여 보관하기
+
+두 개의 키를 각각 복사하여 보관한다.
+
+![](/images/image_file/python_upbit-trader/api4.png)
 
 
 본인의 access_key와 secret_key는 노출이 되지 않도록 보관을 잘 해야하며, 필자의 경우에는 code가 github에 업로드 되기에, akey.txt와 skey.txt 파일을 각각 만들어 key를 저장해 두었다. 그리고, .gitignore 파일에 두 파일을 추가함으로 인해 노출이 되지않도록 하였다.  
 (코드를 공유하지 않는 경우엔, access_key = "발급받은 access_key" secret_key = "발급받은 secret_key"를 바로 집어 넣어도 무방하다.)
+
+
+## 잔고조회
+
+이제 발급받은 access_key와 secret_key를 이용하여 나의 잔고를 확인해보자.
 
 ```{python}
 import pyupbit
@@ -153,4 +182,11 @@ upbit = pyupbit.Upbit(access_key, secret_key)
 ```
 
 
+
+
+## [총평]
+업비트를 이용한 코인 자동 매매를 하기 위해 단순 조회부터 API 키 발급을 통한 계정 연동, 매수, 매도 까지 알아보았다. 양이 점점 방대해지고 스크롤 압박이 강해지는 것 같아, 추후 코인 자동매매 알고리즘은 후속 포스팅을 통해 진행해보겠다.
+
+
+##### reference : https://wikidocs.net/31063
 
