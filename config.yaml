@@ -2,7 +2,7 @@ baseurl: /
 languageCode: ko-KR
 title: 아이리스 코드다이어리
 theme: hugo-lithium
-googleAnalytics: ''
+googleAnalytics: 'G-R7KX3SNV6C'
 disqusShortname: ''
 ignoreFiles:
   - \.Rmd$
