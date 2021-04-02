@@ -1,5 +1,5 @@
 ---
-title: '[R]ggplot2 - 기본'
+title: '[R]ggplot2-기본'
 author: iris
 date: '2021-03-27'
 slug: r-ggplot2
