@@ -13,20 +13,20 @@ tags:
 
 
 # **publish**
-+ [netlify]("https://app.netlify.com/")
++ [netlify](https://app.netlify.com/)
 
 
 # **reference**
-+ [boostrap]("https://getbootstrap.com/docs/4.5/getting-started/introduction/")
++ [boostrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
 
 
 # **ads**
-+ [google adsense]("https://www.google.com/adsense/")
-+ [kakao adfit]("https://accounts.kakao.com/login/adfit?continue=https%3A%2F%2Fadfit.kakao.com%2Fj_spring_security_check")
++ [google adsense](https://www.google.com/adsense/)
++ [kakao adfit](https://accounts.kakao.com/login/adfit?continue=https%3A%2F%2Fadfit.kakao.com%2Fj_spring_security_check)
 
 
 # **sharing**
-+ [addthis]("https://www.addthis.com/dashboard#gallery/pub/ra-6066e0b2e0920667)
++ [addthis](https://www.addthis.com/dashboard#gallery/pub/ra-6066e0b2e0920667)
 
 # **trace**
 + [naver search advisor](https://searchadvisor.naver.com/)
