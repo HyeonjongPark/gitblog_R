@@ -1,0 +1,54 @@
+---
+title: '[web/app] web publish'
+author: iris
+date: '2021-04-06'
+slug: web-app-web-publish
+categories:
+  - web
+tags:
+  - app
+  - web
+  - sso
+  - mbti
+---
+
+
+<br>
+[**1. 나의 성격과 어울리는 코인은 뭘까?(한국어)**](https://coinstyle.netlify.app/)<br><br>
+[![텍스트](/images/image_file/web_publish/main_image.png)](https://coinstyle.netlify.app/){#id .class width='15%'}
+
+
+이번 포스팅에는 MBTI의 원리와 핵심 알고리즘에 대해 간단하게 설명을 해보고자 한다. 친구들이 공유해준 개성있는 MBTI 테스트를 한번 쯤 해본 경우가 있을 것이다. 웹을 만들고 배포하는 데 관심이 있는 사람이라면, 괜찮은 아이디어만 있으면 한번 쯤? 만들어 볼 수 있을 것이라고 생각했을 것이다. 필자 역시 마찬가지다. 그래서 코드 라이언 강의의 도움으로 이렇게 한번 만들어 보게 되었다. 
+
+우선 MBTI 테스트를 만들기에 앞서, MBTI를 구성하는 선호 지표에 대해 파악할 필요가 있다.  
+
+
+외향(E) <-    에너지 방향   -> 내향(I)  
+감각(S) <-    인식 기능     -> 직관(N)  
+사고(T) <-    판단 기능     -> 감정(F)  
+판단(J) <-    생활 양식     -> 인식(P)  
+
+
+  
+MBTI는 이 4가지 선호 지표의 조합을 통해, 총 16가지의 성격유형을 정의하고 개개인의 특성과 행동의 관계에 대한 이해를 돕는다.
+
+
+![](/images/image_file/web_publish/char_16.PNG){#id .class width='100%'}
+
+##### 출처 : http://job.kookje.ac.kr:8080/kookje/main/test/mbti.jsp
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### reference
+#### http://job.kookje.ac.kr:8080/kookje/main/test/mbti.jsp
+
