@@ -16,121 +16,121 @@ tags:
 <p><img src="/images/image_file/docker/docker_logo.PNG" id="id" class="class" style="width:25.0%" />
 <img src="/images/image_file/docker/docker.PNG" id="id" class="class" style="width:73.0%" /></p>
 <p>도커(Docker)는 리눅스의 응용 프로그램들을 소프트웨어 컨테이너 안에 배치시키는 일을 자동화하는 오픈 소스 프로젝트이다. 이를 활용하기 위한 기본적인 명령어에 대해 알아보도록 하겠다.</p>
-<div id="도커-설치" class="section level2">
-<h2>도커 설치</h2>
+<div id="도커-설치" class="section level3">
+<h3>도커 설치</h3>
 <pre><code>sudo wget -qO- https://get.docker.com/ | sh</code></pre>
 </div>
-<div id="편집기-설치" class="section level2">
-<h2>편집기 설치</h2>
+<div id="편집기-설치" class="section level3">
+<h3>편집기 설치</h3>
 <pre><code>sudo apt-get update
 sudo apt-get install vim</code></pre>
 </div>
-<div id="포트-허용" class="section level2">
-<h2>포트 허용</h2>
+<div id="포트-허용" class="section level3">
+<h3>포트 허용</h3>
 <pre><code>sudo ufw allow [포트]</code></pre>
 </div>
-<div id="이미지-확인" class="section level2">
-<h2>이미지 확인</h2>
+<div id="이미지-확인" class="section level3">
+<h3>이미지 확인</h3>
 <pre><code>docker images </code></pre>
 </div>
-<div id="컨테이너-확인" class="section level2">
-<h2>컨테이너 확인</h2>
+<div id="컨테이너-확인" class="section level3">
+<h3>컨테이너 확인</h3>
 <pre><code>docker ps </code></pre>
 </div>
-<div id="실행-확인" class="section level2">
-<h2>실행 확인</h2>
+<div id="실행-확인" class="section level3">
+<h3>실행 확인</h3>
 <pre><code>docker run hello-world </code></pre>
 </div>
-<div id="우분투-이미지-설치" class="section level2">
-<h2>우분투 이미지 설치</h2>
+<div id="우분투-이미지-설치" class="section level3">
+<h3>우분투 이미지 설치</h3>
 <pre><code>docker pull ubuntu:latest </code></pre>
 </div>
-<div id="컨테이너-재부팅" class="section level2">
-<h2>컨테이너 재부팅</h2>
+<div id="컨테이너-재부팅" class="section level3">
+<h3>컨테이너 재부팅</h3>
 <pre><code>docker restart [컨테이너 이름]</code></pre>
 </div>
-<div id="컨테이너-접속" class="section level2">
-<h2>컨테이너 접속</h2>
+<div id="컨테이너-접속" class="section level3">
+<h3>컨테이너 접속</h3>
 <pre><code>sudo docker exec -it [컨테이너 이름] /bin/bash </code></pre>
 </div>
-<div id="도커-저장소에-이미지-푸쉬하기" class="section level2">
-<h2>도커 저장소에 이미지 푸쉬하기</h2>
+<div id="도커-저장소에-이미지-푸쉬하기" class="section level3">
+<h3>도커 저장소에 이미지 푸쉬하기</h3>
 <pre><code>docker push [이미지] </code></pre>
 </div>
-<div id="다른서버에서-이미지-가져오기" class="section level2">
-<h2>다른서버에서 이미지 가져오기</h2>
+<div id="다른서버에서-이미지-가져오기" class="section level3">
+<h3>다른서버에서 이미지 가져오기</h3>
 <pre><code>docker pull [이미지]</code></pre>
 </div>
-<div id="도커로그인" class="section level2">
-<h2>도커로그인</h2>
+<div id="도커로그인" class="section level3">
+<h3>도커로그인</h3>
 <pre><code>docker login </code></pre>
 </div>
-<div id="r-studio-서버-찾기" class="section level2">
-<h2>r studio 서버 찾기</h2>
+<div id="r-studio-서버-찾기" class="section level3">
+<h3>r studio 서버 찾기</h3>
 <pre><code>docker search rstudio-server </code></pre>
 </div>
-<div id="포트-사용여부-확인" class="section level2">
-<h2>포트 사용여부 확인</h2>
+<div id="포트-사용여부-확인" class="section level3">
+<h3>포트 사용여부 확인</h3>
 <pre><code>netstat -nlp | grep [포트번호] </code></pre>
 </div>
-<div id="도커-컨테이너-생성-rstudio" class="section level2">
-<h2>도커 컨테이너 생성 (rstudio)</h2>
+<div id="도커-컨테이너-생성-rstudio" class="section level3">
+<h3>도커 컨테이너 생성 (rstudio)</h3>
 <pre><code>sudo docker run -d -p [사용하고자하는 포트번호]:8787 --name [컨테이너 이름] -e ROOT=TRUE -e PASSWORD=[패스워드] rocker/verse:3.6.1</code></pre>
 </div>
-<div id="컨테이너-실행-종료" class="section level2">
-<h2>컨테이너 실행 종료</h2>
+<div id="컨테이너-실행-종료" class="section level3">
+<h3>컨테이너 실행 종료</h3>
 <pre><code>sudo docker stop [컨테이너 이름] </code></pre>
 </div>
-<div id="컨테이너-이름-변경" class="section level2">
-<h2>컨테이너 이름 변경</h2>
+<div id="컨테이너-이름-변경" class="section level3">
+<h3>컨테이너 이름 변경</h3>
 <pre><code>sudo docker rename [old name] [new name] </code></pre>
 </div>
-<div id="컨테이너-삭제" class="section level2">
-<h2>컨테이너 삭제</h2>
+<div id="컨테이너-삭제" class="section level3">
+<h3>컨테이너 삭제</h3>
 <pre><code>docker rm [컨테이너 이름] </code></pre>
 </div>
-<div id="자원제한-기능" class="section level2">
-<h2>자원제한 기능</h2>
+<div id="자원제한-기능" class="section level3">
+<h3>자원제한 기능</h3>
 <pre><code>docker inspect [컨테이너 이름]</code></pre>
 </div>
-<div id="도커-컨테이너-생성-샤이니-앱" class="section level2">
-<h2>도커 컨테이너 생성 (샤이니 앱)</h2>
+<div id="도커-컨테이너-생성-샤이니-앱" class="section level3">
+<h3>도커 컨테이너 생성 (샤이니 앱)</h3>
 <pre><code>sudo docker run -d -p [사용하고자하는 포트번호]:3838 --name [컨테이너 이름] -e ROOT=TRUE -e PASSWORD=[패스워드] rocker/shiny:3.6.1</code></pre>
 </div>
-<div id="이미지-삭제" class="section level2">
-<h2>이미지 삭제</h2>
+<div id="이미지-삭제" class="section level3">
+<h3>이미지 삭제</h3>
 <pre><code>docker rmi [이미지이름]:[이미지태그]</code></pre>
 </div>
-<div id="도커-옵션" class="section level2">
-<h2>도커 옵션</h2>
+<div id="도커-옵션" class="section level3">
+<h3>도커 옵션</h3>
 <pre><code>i : interactive. 컨테이너와 상호적으로 주고받기
 t : tty. tty를 사용하겠다. 터미널과 비슷한 환경을 조성해주는 것
 rm : 프로세스 종료시 컨테이너 자동 제거
 v : 호스트와 컨테이너의 디렉토리를 연결 (마운트)
 p : 호스트와 컨테이너의 포트를 연결 (포워딩)</code></pre>
 </div>
-<div id="도커-자원할당-cpu-갯수-15개로-제한" class="section level2">
-<h2>도커 자원할당 cpu 갯수 15개로 제한</h2>
+<div id="도커-자원할당-cpu-갯수-15개로-제한" class="section level3">
+<h3>도커 자원할당 cpu 갯수 15개로 제한</h3>
 <pre><code>sudo docker update --cpuset-cpus=&quot;0-14&quot; [컨테이너 이름]</code></pre>
 </div>
-<div id="갯수-확인" class="section level2">
-<h2>갯수 확인</h2>
+<div id="갯수-확인" class="section level3">
+<h3>갯수 확인</h3>
 <pre><code>sudo docker inspect [컨테이너 이름]</code></pre>
 </div>
-<div id="도커-컨테이너-별-메모리-사용량-확인" class="section level2">
-<h2>도커 컨테이너 별 메모리 사용량 확인</h2>
+<div id="도커-컨테이너-별-메모리-사용량-확인" class="section level3">
+<h3>도커 컨테이너 별 메모리 사용량 확인</h3>
 <pre><code>docker stats --format &quot;table {{.Name}}\t{{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}&quot;</code></pre>
 </div>
-<div id="메모리-차지-프로세스-상위-10개-보기" class="section level2">
-<h2>메모리 차지 프로세스 상위 10개 보기</h2>
+<div id="메모리-차지-프로세스-상위-10개-보기" class="section level3">
+<h3>메모리 차지 프로세스 상위 10개 보기</h3>
 <pre><code>ps -eo user,pid,ppid,rss,size,vsize,pmem,pcpu,time,comm --sort -rss | head -n 11</code></pre>
 </div>
-<div id="프로세스-킬" class="section level2">
-<h2>프로세스 킬</h2>
+<div id="프로세스-킬" class="section level3">
+<h3>프로세스 킬</h3>
 <pre><code>kill -9 PID # 강제종료
 kill -15 PID # 작업종료</code></pre>
 </div>
-<div id="마무리" class="section level2">
-<h2>마무리</h2>
+<div id="마무리" class="section level3">
+<h3>마무리</h3>
 <p>여기까지 도커에 대한 기본적인 명령어들을 아주 얕게 살펴보았다. 도커를 활용해 데이터분석 시 어떤 효용이 있는 지 추후에 알아보도록 하겠다.</p>
 </div>

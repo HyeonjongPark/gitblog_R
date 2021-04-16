@@ -17,74 +17,74 @@ tags:
 도커(Docker)는 리눅스의 응용 프로그램들을 소프트웨어 컨테이너 안에 배치시키는 일을 자동화하는 오픈 소스 프로젝트이다. 이를 활용하기 위한 기본적인 명령어에 대해 알아보도록 하겠다.
 
 
-## 도커 설치
+### 도커 설치
 	sudo wget -qO- https://get.docker.com/ | sh
 
-## 편집기 설치
+### 편집기 설치
 	sudo apt-get update
 	sudo apt-get install vim
 
-## 포트 허용
+### 포트 허용
 	sudo ufw allow [포트]
 
-## 이미지 확인
+### 이미지 확인
 	docker images 
 
-## 컨테이너 확인
+### 컨테이너 확인
 	docker ps 
 
-## 실행 확인
+### 실행 확인
 	docker run hello-world 
 
 
 
-## 우분투 이미지 설치
+### 우분투 이미지 설치
 	docker pull ubuntu:latest 
 
-## 컨테이너 재부팅
+### 컨테이너 재부팅
 	docker restart [컨테이너 이름]
 
-## 컨테이너 접속
+### 컨테이너 접속
 	sudo docker exec -it [컨테이너 이름] /bin/bash 
 
-## 도커 저장소에 이미지 푸쉬하기
+### 도커 저장소에 이미지 푸쉬하기
 	docker push [이미지] 
 
-## 다른서버에서 이미지 가져오기
+### 다른서버에서 이미지 가져오기
 	docker pull [이미지]
 
-## 도커로그인
+### 도커로그인
 	docker login 
 
-## r studio 서버 찾기
+### r studio 서버 찾기
 	docker search rstudio-server 
 
-## 포트 사용여부 확인
+### 포트 사용여부 확인
 	netstat -nlp | grep [포트번호] 
 
-## 도커 컨테이너 생성 (rstudio)
+### 도커 컨테이너 생성 (rstudio)
 	sudo docker run -d -p [사용하고자하는 포트번호]:8787 --name [컨테이너 이름] -e ROOT=TRUE -e PASSWORD=[패스워드] rocker/verse:3.6.1
 
-## 컨테이너 실행 종료
+### 컨테이너 실행 종료
 	sudo docker stop [컨테이너 이름] 
 
-## 컨테이너 이름 변경
+### 컨테이너 이름 변경
 	sudo docker rename [old name] [new name] 
 
-## 컨테이너 삭제
+### 컨테이너 삭제
 	docker rm [컨테이너 이름] 
 
-## 자원제한 기능
+### 자원제한 기능
 	docker inspect [컨테이너 이름]
 
-## 도커 컨테이너 생성 (샤이니 앱)
+### 도커 컨테이너 생성 (샤이니 앱)
 	sudo docker run -d -p [사용하고자하는 포트번호]:3838 --name [컨테이너 이름] -e ROOT=TRUE -e PASSWORD=[패스워드] rocker/shiny:3.6.1
 
-## 이미지 삭제
+### 이미지 삭제
 	docker rmi [이미지이름]:[이미지태그]
 
 
-## 도커 옵션
+### 도커 옵션
 	i : interactive. 컨테이너와 상호적으로 주고받기
 	t : tty. tty를 사용하겠다. 터미널과 비슷한 환경을 조성해주는 것
 	rm : 프로세스 종료시 컨테이너 자동 제거
@@ -92,24 +92,24 @@ tags:
 	p : 호스트와 컨테이너의 포트를 연결 (포워딩)
 
 
-## 도커 자원할당 cpu 갯수 15개로 제한
+### 도커 자원할당 cpu 갯수 15개로 제한
 	sudo docker update --cpuset-cpus="0-14" [컨테이너 이름]
 	
-## 갯수 확인
+### 갯수 확인
 	sudo docker inspect [컨테이너 이름]
 
 
-## 도커 컨테이너 별 메모리 사용량 확인
+### 도커 컨테이너 별 메모리 사용량 확인
 	docker stats --format "table {{.Name}}\t{{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}"
 
-## 메모리 차지 프로세스 상위 10개 보기
+### 메모리 차지 프로세스 상위 10개 보기
 	ps -eo user,pid,ppid,rss,size,vsize,pmem,pcpu,time,comm --sort -rss | head -n 11
 
-## 프로세스 킬
+### 프로세스 킬
 	kill -9 PID # 강제종료
 	kill -15 PID # 작업종료
 
 
 
-## 마무리
+### 마무리
 여기까지 도커에 대한 기본적인 명령어들을 아주 얕게 살펴보았다. 도커를 활용해 데이터분석 시 어떤 효용이 있는 지 추후에 알아보도록 하겠다.
