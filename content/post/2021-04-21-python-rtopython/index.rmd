@@ -1,0 +1,219 @@
+---
+title: '[Python] R 문법 -> Python 문법 변환(데이터분석용)'
+author: iris
+date: '2021-04-21'
+slug: python-rtopython
+categories:
+  - python
+  - R
+tags:
+  - function
+  - R
+  - python
+---
+
+
+R에 익숙한 R 유저가 Python에 익숙해지고 싶은데, Python 문법에 대해 잘 모르면 구글링을 통해 각 문법별로 서칭을 해야하고 이에 많은 시간과 공수를 들여야할 것이다. 필자 역시 이러한 경험을 해보았고 아직도 문법적인 측면에서 python에 대해 미숙하기에 이번 기회에 문법 R->python 으로 정리해보고자 한다.
+
+## 1. 데이터 로드(read.csv, fread)
+
+데이터 분석에 앞서 우선적으로 데이터를 읽어와 변수에 저장을 해야한다. train.csv 라는 엑셀 csv 형태로 저장된 데이터가 있다는 가정하에, R 문법과 python 문법으로 데이터를 각각 가져와 train이라는 변수에 저장해보자.
+
+
+### [R]
+R 유저의 입장에서 주로 사용했던 문법은 read.csv, fread 등이 있다.
+data.table 라이브러리 내에 fread 함수를 통해 대용량 데이터를 빠르게 로드 가능하다.
+
+```{r eval=FALSE}
+# method 1
+train = read.csv("./data/train.csv")
+
+# method 2 
+library(data.table) 
+train = fread("./data/train.csv") 
+```
+
+
+### [python]
+python 에서 데이터를 로드할 때, pandas를 import 해준 후, 데이터를 로드한다.
+- encoding 옵션 : csv 파일 내에 한글을 읽어올 때, 'cp949' 혹은 'euc-kr' 옵션을 사용
+
+```{python eval=FALSE}
+import pandas as pd
+
+# method 1-1
+train = pd.read_csv("./data/train.csv")
+
+# method 1-2
+train = pd.read_csv("./data/train.csv", encoding='cp949')
+
+```
+
+
+
+
+<!-- ## 2.  -->
+
+<!-- 설명 -->
+
+<!-- ### [R] -->
+<!-- ```{r eval=FALSE} -->
+
+<!-- ``` -->
+
+
+<!-- ### [python] -->
+<!-- ```{python eval=FALSE} -->
+
+<!-- ``` -->
+
+
+
+
+<!-- ## 2.  -->
+
+<!-- 설명 -->
+
+
+<!-- ### [R] -->
+<!-- ```{r eval=FALSE} -->
+
+<!-- ``` -->
+
+
+<!-- ### [python] -->
+<!-- ```{python eval=FALSE} -->
+
+<!-- ``` -->
+
+
+
+<!-- ## 2.  -->
+
+<!-- 설명 -->
+
+
+<!-- ### [R] -->
+<!-- ```{r eval=FALSE} -->
+
+<!-- ``` -->
+
+
+<!-- ### [python] -->
+<!-- ```{python eval=FALSE} -->
+
+<!-- ``` -->
+
+
+
+
+<!-- ## 2.  -->
+
+<!-- 설명 -->
+
+
+<!-- ### [R] -->
+<!-- ```{r eval=FALSE} -->
+
+<!-- ``` -->
+
+
+<!-- ### [python] -->
+<!-- ```{python eval=FALSE} -->
+
+<!-- ``` -->
+
+
+
+
+<!-- ## 2.  -->
+
+<!-- 설명 -->
+
+
+<!-- ### [R] -->
+<!-- ```{r eval=FALSE} -->
+
+<!-- ``` -->
+
+
+<!-- ### [python] -->
+<!-- ```{python eval=FALSE} -->
+
+<!-- ``` -->
+
+
+
+
+<!-- ## 2.  -->
+
+<!-- 설명 -->
+
+
+<!-- ### [R] -->
+<!-- ```{r eval=FALSE} -->
+
+<!-- ``` -->
+
+
+<!-- ### [python] -->
+<!-- ```{python eval=FALSE} -->
+
+<!-- ``` -->
+
+
+
+
+<!-- ## 2.  -->
+
+<!-- 설명 -->
+
+
+<!-- ### [R] -->
+<!-- ```{r eval=FALSE} -->
+
+<!-- ``` -->
+
+
+<!-- ### [python] -->
+<!-- ```{python eval=FALSE} -->
+
+<!-- ``` -->
+
+
+
+
+<!-- ## 2.  -->
+
+<!-- 설명 -->
+
+
+<!-- ### [R] -->
+<!-- ```{r eval=FALSE} -->
+
+<!-- ``` -->
+
+
+<!-- ### [python] -->
+<!-- ```{python eval=FALSE} -->
+
+<!-- ``` -->
+
+
+
+
+<!-- ## 2.  -->
+
+<!-- 설명 -->
+
+
+<!-- ### [R] -->
+<!-- ```{r eval=FALSE} -->
+
+<!-- ``` -->
+
+
+<!-- ### [python] -->
+<!-- ```{python eval=FALSE} -->
+
+<!-- ``` -->
