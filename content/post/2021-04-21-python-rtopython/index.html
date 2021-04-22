@@ -1,5 +1,5 @@
 ---
-title: '[Python] R 문법 -> Python 문법 변환(데이터분석용)'
+title: '[Python] R 문법 -> Python 문법 (데이터분석용)'
 author: iris
 date: '2021-04-21'
 slug: python-rtopython
@@ -19,21 +19,26 @@ tags:
 <div id="데이터-로드read.csv-fread" class="section level2">
 <h2>1. 데이터 로드(read.csv, fread)</h2>
 <p>데이터 분석에 앞서 우선적으로 데이터를 읽어와 변수에 저장을 해야한다. train.csv 라는 엑셀 csv 형태로 저장된 데이터가 있다는 가정하에, R 문법과 python 문법으로 데이터를 각각 가져와 train이라는 변수에 저장해보자.</p>
-<div id="r" class="section level3">
-<h3>[R]</h3>
+<blockquote>
+<p><strong>[R]</strong></p>
+</blockquote>
+<blockquote>
 <p>R 유저의 입장에서 주로 사용했던 문법은 read.csv, fread 등이 있다.
 data.table 라이브러리 내에 fread 함수를 통해 대용량 데이터를 빠르게 로드 가능하다.</p>
+</blockquote>
 <pre class="r"><code># method 1
 train = read.csv(&quot;./data/train.csv&quot;)
 
 # method 2 
 library(data.table) 
 train = fread(&quot;./data/train.csv&quot;) </code></pre>
-</div>
-<div id="python" class="section level3">
-<h3>[python]</h3>
+<blockquote>
+<p><strong>[python]</strong></p>
+</blockquote>
+<blockquote>
 <p>python 에서 데이터를 로드할 때, pandas를 import 해준 후, 데이터를 로드한다.
 - encoding 옵션 : csv 파일 내에 한글을 읽어올 때, ‘cp949’ 혹은 ‘euc-kr’ 옵션을 사용</p>
+</blockquote>
 <pre class="python"><code>import pandas as pd
 
 # method 1-1
@@ -41,14 +46,93 @@ train = pd.read_csv(&quot;./data/train.csv&quot;)
 
 # method 1-2
 train = pd.read_csv(&quot;./data/train.csv&quot;, encoding=&#39;cp949&#39;)</code></pre>
-<!-- ## 2.  -->
-<!-- 설명 -->
-<!-- ### [R] -->
-<!-- ```{r eval=FALSE} -->
-<!-- ``` -->
-<!-- ### [python] -->
-<!-- ```{python eval=FALSE} -->
-<!-- ``` -->
+<!-- ####################################################################################### -->
+<!-- ######                                      2                                  ####### -->
+<!-- ####################################################################################### -->
+</div>
+<div id="문자열-처리" class="section level2">
+<h2>2. 문자열 처리</h2>
+<p>문자열을 자르고 붙이고 치환하는 등 다양한 처리 방법에 대한 문법을 알아보자.</p>
+<div id="문자열-자르기" class="section level3">
+<h3>2-1. 문자열 자르기</h3>
+<blockquote>
+<p><strong>[R] substr()</strong></p>
+</blockquote>
+<blockquote>
+<p>문자열을 split 하는 방법으로 R에서는 substr() 함수를 사용한다.</p>
+</blockquote>
+<pre class="r"><code>sentence_1 = &quot;hello world&quot;
+
+# 1 ~ 4 자리 문자열 추출
+substr(sentence_1, 1, 4)</code></pre>
+<pre><code>## [1] &quot;hell&quot;</code></pre>
+<blockquote>
+<p><strong>[python] 인덱스 활용 “:”</strong></p>
+</blockquote>
+<blockquote>
+<p>python은 인덱스를 활용하여 더욱 간단하게 문자열 split이 가능하다.</p>
+</blockquote>
+<pre class="python"><code>sentence_1 = &quot;hello world&quot;
+
+# 1 ~ 4 자리 문자열 추출 - 파이썬은 index가 0부터 시작한다.
+sentence_1[0:4]</code></pre>
+<pre><code>## &#39;hell&#39;</code></pre>
+</div>
+<div id="문자열-붙이기" class="section level3">
+<h3>2-2. 문자열 붙이기</h3>
+<blockquote>
+<p><strong>[R] paste0()</strong></p>
+</blockquote>
+<blockquote>
+<p>문자열을 split 하는 방법으로 R에서는 substr() 함수를 사용하고,
+문자열을 결합하는 방법으로 paste() 또는 paste0()를 사용한다.</p>
+</blockquote>
+<pre class="r"><code>sentence_1 = &quot;hello&quot;
+sentence_2 = &quot;world&quot;
+
+# sentence_1 과 sentence_2 붙이기
+paste0(sentence_1, sentence_2)</code></pre>
+<pre><code>## [1] &quot;helloworld&quot;</code></pre>
+<blockquote>
+<p><strong>[python] + 활용</strong></p>
+</blockquote>
+<blockquote>
+<p>문자열을 저장한 각 변수를 + 연산자로 연결을 하게 되면 paste0와 같은 기능을 한다.</p>
+</blockquote>
+<pre class="python"><code>sentence_1 = &quot;hello&quot;
+sentence_2 = &quot;world&quot;
+
+# sentence_1 과 sentence_2 붙이기
+sentence_1 + sentence_2</code></pre>
+<pre><code>## &#39;helloworld&#39;</code></pre>
+</div>
+<div id="문자열-치환" class="section level3">
+<h3>2-3. 문자열 치환</h3>
+<blockquote>
+<p><strong>[R] gsub()</strong></p>
+</blockquote>
+<blockquote>
+<p>특정 문자를 찾고, 이를 치환하는 방법으로 R에서는 gsub()함수 또는 str_replace() 함수를 주로 사용한다.</p>
+</blockquote>
+<pre class="r"><code>sentence_1 = &quot;hello world&quot;
+
+# 띄어쓰기를 공백으로 치환하기
+gsub(&quot; &quot;, &quot;&quot;, sentence_1)</code></pre>
+<pre><code>## [1] &quot;helloworld&quot;</code></pre>
+<blockquote>
+<p><strong>[python] replace()</strong></p>
+</blockquote>
+<blockquote>
+<p>replace() 함수를 사용하여 문자를 치환할 수 있다.</p>
+</blockquote>
+<pre class="python"><code>sentence_1 = &quot;hello world&quot;
+
+# 띄어쓰기를 공백으로 치환하기
+sentence_1.replace(&#39; &#39;, &#39;&#39;)</code></pre>
+<pre><code>## &#39;helloworld&#39;</code></pre>
+<!-- ####################################################################################### -->
+<!-- ######                                                                          ####### -->
+<!-- ####################################################################################### -->
 <!-- ## 2.  -->
 <!-- 설명 -->
 <!-- ### [R] -->
