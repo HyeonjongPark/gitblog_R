@@ -12,4 +12,4 @@ R 프로그래밍과 관련한 다양한 패키지들을 다루어 보겠습니�
 guswhd9844@gmail.com  
 [github](https://github.com/HyeonjongPark)  
 [gitblog](https://hyeonjongpark.github.io/)  
-[instagram](https://www.instagram.com/guswhd3885/)  
+<!--[instagram](https://www.instagram.com/guswhd3885/)  -->
