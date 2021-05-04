@@ -1,0 +1,151 @@
+---
+title: '[Python] R 문법 -> Python 문법 (2)'
+author: iris
+date: '2021-05-04'
+slug: python-rtopython
+categories:
+  - python
+  - R
+tags:
+  - function
+  - R
+  - python
+---
+
+
+
+
+### 1. 대,소문자 변환
+
+> **[R] toupper(), tolower()**
+
+> 문자열 또는 문자의 대,소문자 변환시에 사용되는 함수
+
+```{r}
+sentence_1 = "Hello World"
+
+# 대문자로 변환
+toupper(sentence_1)
+
+# 소문자로 변환
+tolower(sentence_1)
+
+```
+
+> **[python] .upper(), .lower()**
+
+
+```{python}
+sentence_1 = "Hello World"
+
+sentence_1.upper()# 대문자로 변환
+
+
+sentence_1.lower()# 소문자로 변환
+
+```
+
+
+
+
+
+### 2. 공백 제거 - 좌,우의 무의미한 공백을 제거한다.
+
+> **[R] trimws()**
+
+
+```{r}
+sentence_1 = "  Hello World  "
+
+trimws(sentence_1)
+```
+
+> **[python] **
+
+
+```{python}
+sentence_1 = "  Hello World  "
+
+sentence_1.strip()
+```
+
+
+
+
+
+### 3. 문자열 대체
+
+> **[R] gsub()**
+
+
+```{r}
+sentence_1 = "Hello World"
+
+gsub("Hello", "Hi", sentence_1)
+```
+
+> **[python] .replace()**
+
+
+```{python}
+sentence_1 = "Hello World"
+
+sentence_1.replace("Hello", "Hi")
+```
+
+
+
+
+
+### 4. 문자열 나누기
+
+> **[R] str_split()**
+
+
+```{r}
+library(stringr)
+sentence_1 = "Hello World"
+
+str_split(sentence_1, " ")
+```
+
+> **[python] .split()**
+
+
+```{python}
+sentence_1 = "Hello World"
+
+sentence_1.split(" ")
+```
+
+
+
+
+
+
+### 5. 특정 문자 개수
+
+> **[R] str_count()**
+
+
+```{r}
+library(stringr)
+sentence_1 = "Hello World"
+
+str_count(sentence_1, "l")
+```
+
+> **[python] .count()**
+
+
+```{python}
+sentence_1 = "Hello World"
+
+sentence_1.count('l')
+```
+
+
+
+
+
+

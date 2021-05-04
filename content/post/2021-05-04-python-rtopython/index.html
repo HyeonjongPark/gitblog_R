@@ -1,0 +1,115 @@
+---
+title: '[Python] R 문법 -> Python 문법 (2)'
+author: iris
+date: '2021-05-04'
+slug: python-rtopython
+categories:
+  - python
+  - R
+tags:
+  - function
+  - R
+  - python
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="대소문자-변환" class="section level3">
+<h3>1. 대,소문자 변환</h3>
+<blockquote>
+<p><strong>[R] toupper(), tolower()</strong></p>
+</blockquote>
+<blockquote>
+<p>문자열 또는 문자의 대,소문자 변환시에 사용되는 함수</p>
+</blockquote>
+<pre class="r"><code>sentence_1 = &quot;Hello World&quot;
+
+# 대문자로 변환
+toupper(sentence_1)</code></pre>
+<pre><code>## [1] &quot;HELLO WORLD&quot;</code></pre>
+<pre class="r"><code># 소문자로 변환
+tolower(sentence_1)</code></pre>
+<pre><code>## [1] &quot;hello world&quot;</code></pre>
+<blockquote>
+<p><strong>[python] .upper(), .lower()</strong></p>
+</blockquote>
+<pre class="python"><code>sentence_1 = &quot;Hello World&quot;
+
+sentence_1.upper()# 대문자로 변환
+</code></pre>
+<pre><code>## &#39;HELLO WORLD&#39;</code></pre>
+<pre class="python"><code>sentence_1.lower()# 소문자로 변환</code></pre>
+<pre><code>## &#39;hello world&#39;</code></pre>
+</div>
+<div id="공백-제거---좌우의-무의미한-공백을-제거한다." class="section level3">
+<h3>2. 공백 제거 - 좌,우의 무의미한 공백을 제거한다.</h3>
+<blockquote>
+<p><strong>[R] trimws()</strong></p>
+</blockquote>
+<pre class="r"><code>sentence_1 = &quot;  Hello World  &quot;
+
+trimws(sentence_1)</code></pre>
+<pre><code>## [1] &quot;Hello World&quot;</code></pre>
+<blockquote>
+<p><strong>[python] </strong></p>
+</blockquote>
+<pre class="python"><code>sentence_1 = &quot;  Hello World  &quot;
+
+sentence_1.strip()</code></pre>
+<pre><code>## &#39;Hello World&#39;</code></pre>
+</div>
+<div id="문자열-대체" class="section level3">
+<h3>3. 문자열 대체</h3>
+<blockquote>
+<p><strong>[R] gsub()</strong></p>
+</blockquote>
+<pre class="r"><code>sentence_1 = &quot;Hello World&quot;
+
+gsub(&quot;Hello&quot;, &quot;Hi&quot;, sentence_1)</code></pre>
+<pre><code>## [1] &quot;Hi World&quot;</code></pre>
+<blockquote>
+<p><strong>[python] .replace()</strong></p>
+</blockquote>
+<pre class="python"><code>sentence_1 = &quot;Hello World&quot;
+
+sentence_1.replace(&quot;Hello&quot;, &quot;Hi&quot;)</code></pre>
+<pre><code>## &#39;Hi World&#39;</code></pre>
+</div>
+<div id="문자열-나누기" class="section level3">
+<h3>4. 문자열 나누기</h3>
+<blockquote>
+<p><strong>[R] str_split()</strong></p>
+</blockquote>
+<pre class="r"><code>library(stringr)
+sentence_1 = &quot;Hello World&quot;
+
+str_split(sentence_1, &quot; &quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;Hello&quot; &quot;World&quot;</code></pre>
+<blockquote>
+<p><strong>[python] .split()</strong></p>
+</blockquote>
+<pre class="python"><code>sentence_1 = &quot;Hello World&quot;
+
+sentence_1.split(&quot; &quot;)</code></pre>
+<pre><code>## [&#39;Hello&#39;, &#39;World&#39;]</code></pre>
+</div>
+<div id="특정-문자-개수" class="section level3">
+<h3>5. 특정 문자 개수</h3>
+<blockquote>
+<p><strong>[R] str_count()</strong></p>
+</blockquote>
+<pre class="r"><code>library(stringr)
+sentence_1 = &quot;Hello World&quot;
+
+str_count(sentence_1, &quot;l&quot;)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<blockquote>
+<p><strong>[python] .count()</strong></p>
+</blockquote>
+<pre class="python"><code>sentence_1 = &quot;Hello World&quot;
+
+sentence_1.count(&#39;l&#39;)</code></pre>
+<pre><code>## 3</code></pre>
+</div>
