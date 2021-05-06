@@ -1,0 +1,171 @@
+---
+title: '[Python]네이버 크롤러 + 슬랙 봇'
+author: iris
+date: '2021-05-06'
+slug: python-naver-crawler-slack-bot
+categories:
+  - python
+tags:
+  - slack
+  - crawler
+  - python
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p><img src="/images/image_file/bot/naver_logo.png" id="id" class="class" style="width:25.0%" />
+<img src="/images/image_file/bot/slack_logo.png" id="id" class="class" style="width:50.0%" /></p>
+<div id="네이버-크롤러-슬랙-봇" class="section level1">
+<h1>네이버 크롤러 + 슬랙 봇</h1>
+<p>naver 카페의 관리자임과 동시에 관리해야할 카페 회원이 다수인 경우, 최대한 댓글을 단다고 했는데 댓글을 달았는 지 헷갈리는 경우가 많다.</p>
+<p>이런 경우 게시물을 클릭하여 “내가 댓글을 달았나?” 하고 일일이 확인할 수도 있다. 하지만 이는 시간적으로 비효율적이고 매우 노가다스럽다고 느낄 것이다.</p>
+<p>따라서 이번 시간에는 Python을 이용하여 카페의 데이터를 수집하는 크롤러를 만들고 이를 슬랙과 연동하여 메시지를 주는 봇을 만들어 보도록하겠다.</p>
+<hr />
+<blockquote>
+<p>슬랙 api에 접속하여 앱을 생성 후에, token 을 받고 이를 slack_token.txt 파일에 저장한다. post_message 이 함수 같은 경우는 bot 이 메시지를 보내는 기능을 한다.</p>
+</blockquote>
+<pre class="python"><code>def post_message(token, channel, text):
+    response = requests.post(&quot;https://slack.com/api/chat.postMessage&quot;,
+        headers={&quot;Authorization&quot;: &quot;Bearer &quot;+token},
+        data={&quot;channel&quot;: channel,&quot;text&quot;: text}
+    )
+    print(response)
+    
+myToken = open(&quot;./slack_token.txt&quot;, &quot;r&quot;).readline()</code></pre>
+<blockquote>
+<p>naver가 bot이 자동으로 로그인하는 기능을 방지하기 위해, element로 id와 pw를 send 하게 되면, 사람만이 풀 수 있는 문제를 준다. 따라서 이를 회피하기 위한 방안으로 pyperclip 모듈을 이용하여 id와 pw를 각각 입력하도록 한다.</p>
+</blockquote>
+<pre class="python"><code># id, pw 입력할 곳을 찾습니다.
+tag_id = driver.find_element_by_name(&#39;id&#39;)
+tag_pw = driver.find_element_by_name(&#39;pw&#39;)
+tag_id.clear()
+time.sleep(1)
+
+# id 입력
+naver_id = open(&quot;./naver_id.txt&quot;, &quot;r&quot;).readline()
+tag_id.click()
+pyperclip.copy(naver_id)
+tag_id.send_keys(Keys.CONTROL, &#39;v&#39;)
+time.sleep(1)
+
+# pw 입력
+naver_pw = open(&quot;./naver_pw.txt&quot;, &quot;r&quot;).readline()
+tag_pw.click()
+pyperclip.copy(naver_pw)
+tag_pw.send_keys(Keys.CONTROL, &#39;v&#39;)
+time.sleep(1)</code></pre>
+<blockquote>
+<p>page_range는 사용자가 원하는 만큼의 page를 긁어올 수 있도록 지정을 해준다. 그 후, page를 돌며 article_id를 모두 파싱해서 가져오는 기능을하는 명령이다.</p>
+</blockquote>
+<pre class="python"><code>pages = range(1,page_range)
+
+# 인덱스 별 url
+for page in pages :
+    urls.append(&quot;https://cafe.naver.com/ArticleList.nhn?search.clubid=29171253&amp;search.menuid=197&amp;userDisplay=50&amp;search.boardtype=L&amp;search.specialmenutype=&amp;search.totalCount=501&amp;search.page=&quot;+str(page))
+
+for url in urls :    
+    driver.get(url)
+        
+    driver.switch_to_frame(&quot;cafe_main&quot;)
+    driver.implicitly_wait(1)
+
+    for i in range(0,50):
+        try :           
+            인덱스.append(driver.find_element_by_xpath(&quot;/html/body/div[1]/div/div[4]/table/tbody/tr[&quot;+str(i+1)+&quot;]/td[1]/div[1]/div&quot;).text)
+            작성일.append(driver.find_element_by_xpath(&quot;/html/body/div[1]/div/div[4]/table/tbody/tr[&quot;+str(i+1)+&quot;]/td[3]&quot;).text)
+        except :
+            print(&quot;50개 미만의 게시글입니다.&quot;)
+            break
+
+df=pd.DataFrame({&quot;ind&quot;:인덱스, &quot;date&quot;:작성일})
+
+full_urls = []
+
+# index url
+for ind in 인덱스 :
+    full_urls.append(&quot;https://cafe.naver.com/ArticleRead.nhn?clubid=29171253&amp;menuid=197&amp;boardtype=L&amp;page=1&amp;articleid=&quot;+str(ind))</code></pre>
+<p>이제 full_urls에 있는 모든 url에 크롤러 봇이 접속하며 각 게시글 하단에 있는 댓글을 긁는다. 이때, 댓글 작성자에 해당하는 데이터만 긁으면 되기 때문에 nicknames에 append 하는 형식으로 우선 긁어본다.</p>
+<p>그런 다음, 특정 user의 닉네임이 무엇인지 기재 후에 해당하는 nickname이 있으면 pass, 없으면 not_exist라는 문구와 함께 해당url을 return 받도록 하자.</p>
+<pre class="python"><code>full_urls2 = []
+
+# index url
+for ind in yesterday_index :
+    full_urls2.append(&quot;https://cafe.naver.com/ArticleRead.nhn?clubid=29171253&amp;menuid=197&amp;boardtype=L&amp;page=1&amp;articleid=&quot;+str(ind))
+
+    
+full_urls3 = []
+
+for urls2 in full_urls2:
+    driver.get(urls2)
+    
+    driver.implicitly_wait(1.5)
+    try :
+        driver.switch_to_frame(&quot;cafe_main&quot;)
+
+        driver.implicitly_wait(1.5)
+    
+        nicknames = []
+        
+        for i in range(0,50):
+            driver.implicitly_wait(1.5)
+            try :           
+                nicknames.append(driver.find_element_by_xpath(&quot;/html/body/div/div/div/div[2]/div[2]/div[5]/ul/li[&quot;+str(i+1)+&quot;]/div/div/div[1]/div/a&quot;).text)
+            except :
+                break
+                
+                
+        if len(nicknames) == 0:
+                for i in range(0,50):
+                    driver.implicitly_wait(1.5)
+                    try :           
+                        nicknames.append(driver.find_element_by_xpath(&quot;/html/body/div/div/div/div[2]/div[2]/div[6]/ul/li[&quot;+str(i+1)+&quot;]/div/div/div[1]/div/a&quot;).text)
+                    except :
+                        break
+        
+        print(nicknames)
+        if &#39;인도유랑&#39; in nicknames:
+            print(&quot;exist&quot;)
+        else:
+            full_urls3.append(urls2)
+            print(&quot;not exist&quot;)
+    
+    
+    except : 
+        print(urls2 + &quot;there is no frame&quot;)</code></pre>
+<blockquote>
+<p>미기재 url에 해당하는 값들을 #uncheked 라는 슬랙 채널에 봇이 자동으로 메시지를 던져주는 기능이다.</p>
+</blockquote>
+<pre class="python"><code># 최근 page_range개 기준
+post_message(myToken,&quot;#unchecked&quot;,&quot;약 &quot;+ str((page_range-1)*50) +&quot;개의 게시물을 확인한 결과 &quot;+date.today().strftime(&#39;%Y.%m.%d.&#39;)+&quot;기준으로 아래의 미답변 url을 찾아냈습니다.&quot;)
+
+file = open(&quot;./uncheckedUrl/&quot;+yesterday_str+&quot;uncheck.txt&quot;, &quot;r&quot;)
+strings = file.readlines()
+print(strings)
+file.close()
+
+
+if len(strings) == 1 :
+    post_message(myToken,&quot;#unchecked&quot;,&quot;All Url is checked&quot;)
+    print(&quot;All Url is checked&quot;)
+else :
+    for i in range(1,(len(strings))) :
+        post_message(myToken,&quot;#unchecked&quot;,strings[i])
+
+        if i == (len(strings)-1) :
+            break</code></pre>
+<blockquote>
+<p>bat 파일을 만들어 경로와 파일 실행 명령을 저장해두자.</p>
+</blockquote>
+<pre class="bash"><code>@echo off
+
+D:
+cd D:\workspace\python_workspace\01_cafeCrawler
+python foundedYurang.py
+
+exit
+</code></pre>
+<blockquote>
+<p>이제 windows 작업 스케줄러가 특정 시간대에 위의 bat 파일을 자동으로 실행하게끔 예약을 걸어두자.</p>
+</blockquote>
+</div>
