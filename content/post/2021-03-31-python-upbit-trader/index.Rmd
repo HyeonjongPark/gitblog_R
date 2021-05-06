@@ -1,5 +1,5 @@
 ---
-title: '[python]업비트 자동매매(1/2)'
+title: '[Python]업비트 자동매매(1/2)'
 author: iris
 date: '2021-03-31'
 slug: python-upbit-trader
