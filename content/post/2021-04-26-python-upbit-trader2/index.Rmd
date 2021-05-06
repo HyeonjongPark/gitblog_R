@@ -1,5 +1,5 @@
 ---
-title: '[python] 업비트 자동매매(2/2)'
+title: '[Python] 업비트 자동매매(2/2)'
 author: iris
 date: '2021-04-26'
 slug: python-upbit-trader2
@@ -15,10 +15,12 @@ tags:
 
 ![](/images/image_file/python_upbit-trader/upbit_image.PNG)
 
+# 개발중 . . .
 
 ```{r setup, include=FALSE}
 library(reticulate)
 use_python("usr/local/bin/python")
+
 
 ```
 
