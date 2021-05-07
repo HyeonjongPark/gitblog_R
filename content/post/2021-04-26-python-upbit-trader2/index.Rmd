@@ -15,7 +15,7 @@ tags:
 
 ![](/images/image_file/python_upbit-trader/upbit_image.PNG)
 
-# 개발중 . . .
+# Back Testing 중 . . .
 
 ```{r setup, include=FALSE}
 library(reticulate)
